@@ -1,0 +1,10 @@
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/obj/x86/Debug/Lotto_Html.csproj.AssemblyReference.cache
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/obj/x86/Debug/Lotto_Html.csproj.CoreCompileInputs.cache
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/bin/Debug/Lotto_Html.exe
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/bin/Debug/Lotto_Html.pdb
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/bin/Debug/HtmlAgilityPack.dll
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/bin/Debug/System.Xml.XPath.dll
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/bin/Debug/HtmlAgilityPack.pdb
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/obj/x86/Debug/Lotto_Html.csproj.CopyComplete
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/obj/x86/Debug/Lotto_Html.exe
+/home/zoltan/Projects/Lotto_Html/Lotto_Html/obj/x86/Debug/Lotto_Html.pdb

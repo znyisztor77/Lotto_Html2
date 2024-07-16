@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{F8665276-9978-4F5E-B94B-BBF483AE0700}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Lotto_Html/Program.cs">
+    <Files>
+      <File FileName="Lotto_Html/Program.cs" Line="29" Column="42" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Lotto_Html" expanded="True">
+            <Node name="Lotto_Html" expanded="True" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Lotto__Html PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
