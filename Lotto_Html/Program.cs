@@ -72,7 +72,7 @@ namespace Lotto_Html
             Console.WriteLine("Lotto szamok kiirasa methodus!");
             foreach (var item in lottoszamok)
             {
-                Console.WriteLine(item.Egy);
+                Console.WriteLine($"{item.Egy},{item.Ketto},{item.Harom},{item.Negy},{item.Ot}"); ;
             }
         }
 
