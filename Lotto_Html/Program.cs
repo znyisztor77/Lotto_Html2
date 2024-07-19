@@ -20,11 +20,31 @@ namespace Lotto_Html
 
         static void Main(string[] args)
         {
-            WebClient webClient = new WebClient();
-            string page = webClient.DownloadString("https://bet.szerencsejatek.hu/cmsfiles/otos.html");
+            Console.Write("Luxor(l) vagy ötös lottó?(o):");
+            string fomenu = Console.ReadLine().ToLower();
 
+            WebClient webClient = new WebClient();
+            string page_lotto = webClient.DownloadString("https://bet.szerencsejatek.hu/cmsfiles/otos.html");
+            string page_luxor = webClient.DownloadString("https://bet.szerencsejatek.hu/cmsfiles/luxor.html");
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-            doc.LoadHtml(page);
+            bool kapcsolo = false;
+            switch (fomenu)
+            {
+                case "l":
+                    doc.LoadHtml(page_luxor);
+                    Console.WriteLine("Luxor kiválasztva");
+                    break;
+
+                case "o":
+                    doc.LoadHtml(page_lotto);
+                    kapcsolo = true;
+                    break;
+
+                default:
+                    Console.WriteLine("Nincs ilyen menüpont");
+                    break;
+            }
+            //doc.LoadHtml(page);
 
             List<List<string>> lotto = doc.DocumentNode.SelectSingleNode("//table")
                             .Descendants("tr")
@@ -32,71 +52,82 @@ namespace Lotto_Html
                             .Where(tr => tr.Elements("td").Count() > 1)
                             .Select(tr => tr.Elements("td").Select(td => td.InnerText.Trim()).ToList())
                             .ToList();
-
-            Console.WriteLine($"Ennyi sorsolás volt eddig: {lotto.Count}");
-            Console.WriteLine($"Az legutolsó sorsolás számai: Dátum:{lotto[0][2]}, {lotto[0][11]},{lotto[0][12]},{lotto[0][13]},{lotto[0][14]},{lotto[0][15]}");
-            //Tömbös megoldás
-
-            foreach (var row in lotto)
+            if (kapcsolo==true)
             {
-                Console.WriteLine(string.Join("\t", row[11], row[12], row[13], row[14],row[15]));
-            }
-
-            
-            //Tömbös vége*/
-
-            /*foreach (var row in lotto)
-            {
-                Console.WriteLine(row[0]);
-            }*/
-
-            Console.WriteLine("Folytatáshoz nyomj meg egy billentyűt!");
-
-            Console.WriteLine("Szám konvert!");
-
-            List<Szam> lottoszamok = new List<Szam>();
-
-            Szam szamok = new Szam();
-            foreach (List<string> list in lotto)
-            {
-                szamok.Egy = int.Parse(list[11]);
-                szamok.Ketto = int.Parse(list[12]);
-                szamok.Harom = int.Parse(list[13]);
-                szamok.Negy = int.Parse(list[14]);
-                szamok.Ot = int.Parse(list[15]);
-
+                Console.WriteLine($"Ennyi lotto sorsolás volt eddig: {lotto.Count}");
+                Console.WriteLine($"Az legutolsó sorsolás számai: Dátum:{lotto[0][2]} {lotto[0][11]},{lotto[0][12]},{lotto[0][13]},{lotto[0][14]},{lotto[0][15]}");
 
             }
-            lottoszamok.Add(szamok);
+            else
+            {
+                Console.WriteLine($"Ennyi luxor sorsolás volt eddig: {lotto.Count}");
+                /*int szamlalo = 1;
+                int szamlalo2 = 1;
+                for (int i = 0; i < lotto.Count; i++)
+                {
+                    szamlalo2++;
+
+                    for (int j = 7; j < lotto[1].Count; j++)
+                    {
+                        Console.WriteLine($"{szamlalo2}: {szamlalo}, {lotto[i][j]}");
+                        if (szamlalo == 51)
+                        {
+                            szamlalo = 1;
+                        }
+                        else szamlalo++;
+
+                    }
+                }*/
+
+            }
+
+            int[] luxor = new int[51];
+            int cc = 7;
+            Console.WriteLine($"Az legutolsó sorsolás dátum:{lotto[0][2]}");
+            for (int i = 0; i < luxor.Length; i++)
+            {
+                //Console.WriteLine($"{lotto[0][cc]}");
+                if (int.TryParse(lotto[0][cc], out int a))
+                 {
+                    luxor[i] = a;
+                    cc++;
+                }
+                /*else
+                {
+
+                    Console.WriteLine("0");
+                }*/
+
+            }
+
+            Console.WriteLine("Az utolsó luxor számok:");
+            for (int i = 0; i < luxor.Length; i++)
+            {
+                Console.Write(luxor[i] + ",");
+            }
+            Array.Sort(luxor);
+            int db = 0;
+            Console.WriteLine("\n Emelkedő sorrendben:");
+            for (int i = 0; i < luxor.Length; i++)
+            {
+                if (luxor[i]>0)
+                {
+
+                    Console.Write(luxor[i]+",");
+                    db++;
+                }
+            }
+            Console.WriteLine($"\n{db} db számot húztak ki");
 
 
-            lottoszamok_kiirasa(lottoszamok);
 
-            Console.WriteLine("Folytatáshoz nyomj meg egy billentyűt!");
+            Console.WriteLine("\nFolytatáshoz nyomj meg egy billentyűt!");
 
             Console.ReadKey();
 
             Menu(lotto);
 
 
-        }
-
-        private static void lottoszamok_kiirasa(List<Szam> lottoszamok)
-        {
-            Console.WriteLine("Lotto szamok kiirasa methodus!");
-            foreach (var item in lottoszamok)
-            {
-                Console.WriteLine($"{item.Egy},{item.Ketto},{item.Harom},{item.Negy},{item.Ot}"); ;
-            }
-        }
-
-        struct Szam
-        {
-            public int Egy;
-            public int Ketto;
-            public int Harom;
-            public int Negy;
-            public int Ot;
         }
 
 
