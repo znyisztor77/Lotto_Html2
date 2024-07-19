@@ -32,7 +32,24 @@ namespace Lotto_Html
                             .Where(tr => tr.Elements("td").Count() > 1)
                             .Select(tr => tr.Elements("td").Select(td => td.InnerText.Trim()).ToList())
                             .ToList();
+
             Console.WriteLine($"Ennyi sorsolás volt eddig: {lotto.Count}");
+            Console.WriteLine($"Az legutolsó sorsolás számai: Dátum:{lotto[0][2]}, {lotto[0][11]},{lotto[0][12]},{lotto[0][13]},{lotto[0][14]},{lotto[0][15]}");
+            //Tömbös megoldás
+
+            foreach (var row in lotto)
+            {
+                Console.WriteLine(string.Join("\t", row[11], row[12], row[13], row[14],row[15]));
+            }
+
+            
+            //Tömbös vége*/
+
+            /*foreach (var row in lotto)
+            {
+                Console.WriteLine(row[0]);
+            }*/
+
             Console.WriteLine("Folytatáshoz nyomj meg egy billentyűt!");
 
             Console.WriteLine("Szám konvert!");
@@ -52,16 +69,13 @@ namespace Lotto_Html
             }
             lottoszamok.Add(szamok);
 
-            Console.WriteLine("Számok lista kiírása.");
-
-            foreach (var item in lottoszamok)
-            {
-                Console.WriteLine($"{item.Egy},{item.Ketto},{item.Harom},{item.Negy},{item.Ot}");
-            }
 
             lottoszamok_kiirasa(lottoszamok);
+
             Console.WriteLine("Folytatáshoz nyomj meg egy billentyűt!");
+
             Console.ReadKey();
+
             Menu(lotto);
 
 
