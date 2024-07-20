@@ -32,11 +32,12 @@ namespace Lotto_Html
             {
                 case "l":
                     doc.LoadHtml(page_luxor);
-                    Console.WriteLine("Luxor kiválasztva");
+                    Console.WriteLine("Luxor kiválasztva.");
                     break;
 
                 case "o":
                     doc.LoadHtml(page_lotto);
+                    Console.WriteLine("Ötös lottó kiválasztva.");
                     kapcsolo = true;
                     break;
 
@@ -61,72 +62,70 @@ namespace Lotto_Html
             else
             {
                 Console.WriteLine($"Ennyi luxor sorsolás volt eddig: {lotto.Count}");
-                /*int szamlalo = 1;
-                int szamlalo2 = 1;
-                for (int i = 0; i < lotto.Count; i++)
-                {
-                    szamlalo2++;
 
-                    for (int j = 7; j < lotto[1].Count; j++)
+                int[] luxor = new int[51];
+                int cc = 7;
+                Console.WriteLine($"Az legutolsó sorsolás dátum:{lotto[0][2]}");
+                for (int i = 0; i < luxor.Length; i++)
+                {
+                    //Console.WriteLine($"{lotto[0][cc]}");
+                    if (int.TryParse(lotto[0][cc], out int a))
                     {
-                        Console.WriteLine($"{szamlalo2}: {szamlalo}, {lotto[i][j]}");
-                        if (szamlalo == 51)
-                        {
-                            szamlalo = 1;
-                        }
-                        else szamlalo++;
-
+                        luxor[i] = a;
+                        cc++;
                     }
-                }*/
-
-            }
-
-            int[] luxor = new int[51];
-            int cc = 7;
-            Console.WriteLine($"Az legutolsó sorsolás dátum:{lotto[0][2]}");
-            for (int i = 0; i < luxor.Length; i++)
-            {
-                //Console.WriteLine($"{lotto[0][cc]}");
-                if (int.TryParse(lotto[0][cc], out int a))
-                 {
-                    luxor[i] = a;
-                    cc++;
                 }
-                /*else
+
+                Console.WriteLine("Az utolsó luxor számok:\n");
+                for (int i = 0; i < luxor.Length; i++)
                 {
+                    if (luxor[i]>0 && luxor[i]<=15)
+                    {
+                        Console.Write("L "+luxor[i]+",");
+                    }
+                    if (luxor[i] >= 16 && luxor[i] <= 30)
+                    {
+                        Console.Write("U " + luxor[i]+",");
+                    }
+                    if (luxor[i] >= 31 && luxor[i] <= 45)
+                    {
+                        Console.Write("X " + luxor[i]+",");
+                    }
+                    if (luxor[i] >= 46 && luxor[i] <= 60)
+                    {
+                        Console.Write("O " + luxor[i]+",");
+                    }
+                    if (luxor[i] >= 61 && luxor[i] <= 75)
+                    {
+                        Console.Write("R " + luxor[i]+",");
+                    }
 
-                    Console.WriteLine("0");
-                }*/
-
-            }
-
-            Console.WriteLine("Az utolsó luxor számok:");
-            for (int i = 0; i < luxor.Length; i++)
-            {
-                Console.Write(luxor[i] + ",");
-            }
-            Array.Sort(luxor);
-            int db = 0;
-            Console.WriteLine("\n Emelkedő sorrendben:");
-            for (int i = 0; i < luxor.Length; i++)
-            {
-                if (luxor[i]>0)
-                {
-
-                    Console.Write(luxor[i]+",");
-                    db++;
                 }
+                Console.WriteLine("");
+                Array.Sort(luxor);
+                int db = 0;
+                Console.WriteLine("\nEmelkedő sorrendben:\n");
+                for (int i = 0; i < luxor.Length; i++)
+                {
+                    if (luxor[i]>0)
+                    {
+
+                        Console.Write(luxor[i]+",");
+                        db++;
+                    }
+                }
+                Console.WriteLine("");
+                Console.WriteLine($"\n{db} db számot húztak ki\n");
+                Console.WriteLine("Kilépéshez nyomj meg egy billentyűt.");
+                Console.ReadKey();
+                Environment.Exit(0);
             }
-            Console.WriteLine($"\n{db} db számot húztak ki");
 
-
-
-            Console.WriteLine("\nFolytatáshoz nyomj meg egy billentyűt!");
+            Console.WriteLine("\nTovábbi műveletekhez nyomj meg egy billentyűt!");
 
             Console.ReadKey();
 
             Menu(lotto);
-
 
         }
 
@@ -135,8 +134,9 @@ namespace Lotto_Html
         {
             while (true)
             {
-                Console.WriteLine("Menü: \nVálassz!");
-                Console.WriteLine("|Keresés?(i)|\n|Eddig kisorsolt sorozatok(e)| \n|Kilépés(k)|\n|Utolsó sorsolás számai(u)|");
+                Console.WriteLine("Ötös lottó.\n");
+                Console.WriteLine("Menü: \nVálassz!\n");
+                Console.WriteLine("| Keresés?(i) |\n| Eddig kisorsolt sorozatok(e) | \n| Kilépés(k) |\n| Utolsó sorsolás számai(u) |");
                 string menu = Console.ReadLine().ToLower();
 
                 switch (menu)
@@ -144,6 +144,7 @@ namespace Lotto_Html
                     case "i":
                         lottoszamKeres(lotto);
                         break;
+
                     case "k":
                         Console.WriteLine("Kilépés");
                         Thread.Sleep(50);
@@ -154,12 +155,11 @@ namespace Lotto_Html
                         foreach (List<string> item in lotto)
                         {
                             Console.WriteLine($"{item[11]}, {item[12]}, {item[13]}, {item[14]}, {item[15]}");
-                            
                         }
                         break;
 
                     case "u":
-                        Console.WriteLine($"Ez még nem működik!");
+                        Console.WriteLine($"Az legutolsó sorsolás számai: Dátum:{lotto[0][2]} {lotto[0][11]},{lotto[0][12]},{lotto[0][13]},{lotto[0][14]},{lotto[0][15]}");
                         break;
 
                     default:
@@ -173,7 +173,8 @@ namespace Lotto_Html
         private static void lottoszamKeres(List<List<string>> lotto)
         {
             int[] szamok = new int[5];
-            Console.WriteLine("Kérem az öt számot 1-90: ");
+            Console.WriteLine("Számok ellenörzése.");
+            Console.WriteLine("\nKérem az öt számot 1-90: ");
             for (int i = 0; i < szamok.Length; i++)
             {
                 Console.Write($"{i + 1}. szam: ");
@@ -182,8 +183,6 @@ namespace Lotto_Html
             Array.Sort(szamok);
 
             bool b = false;
-
-
 
             foreach (List<string> item in lotto)
             {
